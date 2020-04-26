@@ -1,1 +1,8 @@
-# rocketseat-bootamp-2020
+# Rocketseat Bootamp
+
+> Níevel 01
+
+- Introdução ao NodeJS
+- Introdução ao ReactJS
+- Introdução ao React Native
+- Introdução ao Typescript
