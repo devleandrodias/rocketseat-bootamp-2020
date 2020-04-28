@@ -4,6 +4,7 @@ const { uuid } = require("uuidv4");
 const app = express();
 
 app.use(express.json());
+app.use(logRequests);
 
 /**
  * Métodos HTTP:
@@ -22,9 +23,41 @@ app.use(express.json());
  * Request body:
  */
 
+/**
+ * Middleware:
+ *
+ * Ele é um interceptador de requisições,
+ * ele pode interromper totalmente toda a requisiçao,
+ * ou ele pode altrar dados da requisição
+ */
+
 const projects = [];
 
-app.post("/projects", (req, res) => {
+// Middleware
+function logRequests(req, res, next) {
+  const { method, url } = req;
+  console.log(`[${method.toUpperCase()}] ${url}`);
+  next();
+}
+
+function logRequestsCustomizado(req, res, next) {
+  const { method, url } = req;
+  const { owner } = req.query;
+
+  const logLabel = `[${method.toUpperCase()}] ${url} - Owner: ${owner} `;
+
+  console.log("1");
+  console.time(logLabel);
+
+  next(); // Passo 01
+  console.log("2");
+  console.timeEnd(logLabel);
+  // Passo 03
+}
+
+// Passo 02
+app.post("/projects", logRequestsCustomizado, (req, res) => {
+  console.log("3");
   const { owner } = req.query;
   const body = req.body;
 
@@ -33,8 +66,14 @@ app.post("/projects", (req, res) => {
   return res.send(body);
 });
 
-app.get("/projects", (_, res) => {
-  return res.json(projects);
+app.get("/projects", (req, res) => {
+  const { name } = req.query;
+
+  const results = name
+    ? projects.filter((project) => project.title.includes(name))
+    : projects;
+
+  return res.json(results);
 });
 
 app.get("/projects/:id", (req, res) => {
