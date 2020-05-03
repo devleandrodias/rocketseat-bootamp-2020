@@ -1,7 +1,5 @@
-import React, { Fragment, useState } from "react";
-
-import backgroundImage from "./assets/background.jpeg";
-
+import React, { Fragment, useState, useEffect } from "react";
+import api from "./services/api.service";
 import "./app.css";
 
 import Header from "./components/header.component";
@@ -12,10 +10,18 @@ export default function App() {
   // 1. Váriavel com seu valor inicial
   // 2. Função para atualizar esse valor
 
-  const [projects, setProjects] = useState([
-    "Backend com .NET e CQRS",
-    "Introdução do gRPC com Go Lang",
-  ]);
+  const [projects, setProjects] = useState([]);
+
+  // useEffect recebe dois parâmetros
+  // 1. Qual função deseja disparar
+  // 2. Quando quer disparar essa função
+
+  useEffect(() => {
+    api.get("projects").then((response) => {
+      setProjects(response.data);
+    });
+  }, []);
+  // [] = array de dependências
 
   function handleAddProjet() {
     setProjects([...projects, `Novo projeto ${Date.now()}`]);
@@ -26,11 +32,10 @@ export default function App() {
       <Header title="Home Page">
         <p>Conteudo de dentro do componente</p>
       </Header>
-      <img width={100} src={backgroundImage} alt="background" />
 
       <ul>
         {projects.map((project) => (
-          <li key={project}>{project}</li>
+          <li key={project.id}>{project.description}</li>
         ))}
       </ul>
 
