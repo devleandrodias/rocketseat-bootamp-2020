@@ -7,4 +7,6 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(3333 || process.env.PORT);
+app.listen(3333, () => {
+  console.info('🚀 [Started] - Backend...');
+});
