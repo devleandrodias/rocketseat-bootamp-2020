@@ -1,26 +1,36 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import Header from "./components/header.component";
 
 export default function App() {
+  // useState retornar array com 2 posiçoes
+  // váriaveis no react são imutáveis
+  // 1. Váriavel com seu valor inicial
+  // 2. Função para atualizar esse valor
+
+  const [projects, setProjects] = useState([
+    "Backend com .NET e CQRS",
+    "Introdução do gRPC com Go Lang",
+  ]);
+
+  function handleAddProjet() {
+    setProjects([...projects, `Novo projeto ${Date.now()}`]);
+  }
+
   return (
     <Fragment>
       <Header title="Home Page">
-        <ul>
-          <li>homepage</li>
-          <li>projects</li>
-          <li>photos</li>
-        </ul>
+        <p>Conteudo de dentro do componente</p>
       </Header>
-      <Header title="Projects">
-        <ul>
-          <li>homepage</li>
-          <li>blog</li>
-          <li>links</li>
-        </ul>
-      </Header>
-      <Header />
-      <Header />
+      <ul>
+        {projects.map((project) => (
+          <li key={project}>{project}</li>
+        ))}
+      </ul>
+
+      <button type="button" onClick={() => handleAddProjet()}>
+        Adicionar Projeto
+      </button>
     </Fragment>
   );
 }
