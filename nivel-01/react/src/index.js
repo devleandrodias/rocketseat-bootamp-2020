@@ -1,3 +1,3 @@
 const soma = (a, b) => a + b;
 
-console.log(1, 4);
+console.log(1, 10);
