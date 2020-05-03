@@ -1,5 +1,9 @@
 import React, { Fragment, useState } from "react";
 
+import backgroundImage from "./assets/background.jpeg";
+
+import "./app.css";
+
 import Header from "./components/header.component";
 
 export default function App() {
@@ -22,6 +26,8 @@ export default function App() {
       <Header title="Home Page">
         <p>Conteudo de dentro do componente</p>
       </Header>
+      <img width={100} src={backgroundImage} alt="background" />
+
       <ul>
         {projects.map((project) => (
           <li key={project}>{project}</li>
