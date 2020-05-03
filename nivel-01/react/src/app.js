@@ -23,8 +23,15 @@ export default function App() {
   }, []);
   // [] = array de dependências
 
-  function handleAddProjet() {
-    setProjects([...projects, `Novo projeto ${Date.now()}`]);
+  async function handleAddProjet() {
+    const response = await api.post("projects", {
+      name: "Projet frontend",
+      description: "Description project teste",
+    });
+
+    const project = response.data;
+
+    setProjects([...projects, project]);
   }
 
   return (
@@ -39,7 +46,7 @@ export default function App() {
         ))}
       </ul>
 
-      <button type="button" onClick={() => handleAddProjet()}>
+      <button type="button" onClick={handleAddProjet}>
         Adicionar Projeto
       </button>
     </Fragment>
