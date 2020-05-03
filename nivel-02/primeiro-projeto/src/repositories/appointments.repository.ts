@@ -8,6 +8,10 @@ class AppointmentsRespository {
 
   private appointments: Appointment[];
 
+  public find(): Appointment[] {
+    return this.appointments;
+  }
+
   public findByDate(date: Date): Appointment | null {
     const findAppointment = this.appointments.find(appointment =>
       isEqual(date, appointment.date)
