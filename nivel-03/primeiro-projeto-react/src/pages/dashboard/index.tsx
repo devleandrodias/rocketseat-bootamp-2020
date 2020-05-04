@@ -1,67 +1,61 @@
-import React from 'react';
+import React, { useState, FormEvent } from 'react';
 import { FiChevronsRight } from 'react-icons/fi';
-
+import api from '../../services/api';
 import logo from '../../assets/logo.svg';
-
 import { Title, Form, Repositories } from './style';
 
+interface Repository {
+  full_name: string;
+  description: string;
+  owner: {
+    login: string;
+    avatar_url: string;
+  };
+}
+
 const Repository: React.FC = () => {
+  const [newRepo, setNewRepo] = useState('');
+  const [repositories, setRepositories] = useState<Repository[]>([]);
+
+  async function handleAddRepository(
+    event: FormEvent<HTMLFormElement>,
+  ): Promise<void> {
+    event.preventDefault();
+
+    const response = await api.get<Repository>(`repos/${newRepo}`);
+    const repository = response.data;
+
+    setRepositories([...repositories, repository]);
+    setNewRepo('');
+  }
+
   return (
     <>
       <img src={logo} alt="github explorer" />
       <Title>Explore repositórios no Github.</Title>
-      <Form>
-        <input type="text" placeholder="Digite o nome do repositório" />
+      <Form onSubmit={handleAddRepository}>
+        <input
+          type="text"
+          placeholder="Digite o nome do repositório"
+          value={newRepo}
+          onChange={e => setNewRepo(e.target.value)}
+        />
         <button type="submit">Pesquisar</button>
       </Form>
       <Repositories>
-        <a href="teste">
-          <img
-            src="https://avatars1.githubusercontent.com/u/47450207?s=460&u=f7d8f046a838177217e7b0350e0e374ffeb270f8&v=4.jpg"
-            alt="Leandro Dias"
-          />
-          <div className="">
-            <strong>balta.io-cqrs-dotnetcode-ef</strong>
-            <p>
-              Curso realizado com propósito de aprender novas tecnologias em
-              .net core
-            </p>
-          </div>
-
-          <FiChevronsRight size={20} />
-        </a>
-
-        <a href="teste">
-          <img
-            src="https://avatars1.githubusercontent.com/u/47450207?s=460&u=f7d8f046a838177217e7b0350e0e374ffeb270f8&v=4.jpg"
-            alt="Leandro Dias"
-          />
-          <div className="">
-            <strong>balta.io-cqrs-dotnetcode-ef</strong>
-            <p>
-              Curso realizado com propósito de aprender novas tecnologias em
-              .net core
-            </p>
-          </div>
-
-          <FiChevronsRight size={20} />
-        </a>
-
-        <a href="teste">
-          <img
-            src="https://avatars1.githubusercontent.com/u/47450207?s=460&u=f7d8f046a838177217e7b0350e0e374ffeb270f8&v=4.jpg"
-            alt="Leandro Dias"
-          />
-          <div className="">
-            <strong>balta.io-cqrs-dotnetcode-ef</strong>
-            <p>
-              Curso realizado com propósito de aprender novas tecnologias em
-              .net core
-            </p>
-          </div>
-
-          <FiChevronsRight size={20} />
-        </a>
+        {repositories.map(repository => (
+          <a key={repository.full_name} href="teste">
+            <img
+              src={repository.owner.avatar_url}
+              alt={repository.owner.login}
+            />
+            <div className="">
+              <strong>{repository.full_name}</strong>
+              <p>{repository.description}</p>
+            </div>
+            <FiChevronsRight size={20} />
+          </a>
+        ))}
       </Repositories>
     </>
   );
