@@ -1,4 +1,52 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  StatusBar,
+  FlatList,
+} from 'react-native';
+import api from './service/api';
 
-export const App = () => <View />;
+// Não possuem sicnificado semântico
+// Não possuem estilização própria
+// Não tem herança de estilos
+// Todos componentes possuem por padrão display flex
+
+export default function App() {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    api.get('/projects').then((resp) => {
+      console.log(resp.data);
+      setProjects(resp.data);
+    });
+  }, []);
+
+  return (
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={projects}
+          keyExtractor={(project) => project.id}
+          renderItem={({item: project}) => (
+            <Text style={styles.project}>{project.title}</Text>
+          )}
+        />
+      </SafeAreaView>
+    </>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#7159c1',
+  },
+  project: {
+    color: '#ddd',
+    fontSize: 25,
+    fontWeight: 'bold',
+  },
+});
