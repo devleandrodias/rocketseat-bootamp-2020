@@ -3,7 +3,7 @@ import { parseISO } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
 import AppointmentsRepository from '../repositories/appointments.repository';
-import createAppointmentService from '../services/create-appointment.service';
+import createAppointmentService from '../services/appointments/create-appointment.service';
 
 const appointmentsRouter = Router();
 
