@@ -20,9 +20,6 @@ class User {
   @Column()
   password: string;
 
-  @Column({ type: 'timestamp' })
-  date: Date;
-
   @CreateDateColumn()
   created_at: Date;
 
