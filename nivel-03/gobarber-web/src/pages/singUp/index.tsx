@@ -18,7 +18,7 @@ const SingUp: React.FC = () => {
       <Background />
       <Content>
         <img src={logoImg} alt="gobarber-logo" />
-        <Form initialData={{ name: 'Leandro' }} onSubmit={handleSubmit}>
+        <Form initialData={{}} onSubmit={handleSubmit}>
           <h1>Faça seu cadastro</h1>
 
           <Input name="name" icon={FiUser} type="text" placeholder="Nome" />
