@@ -10,11 +10,14 @@ authRouter.post('/', async (req, res) => {
 
     const authAuthentication = new CreateAuthAuthenticate();
 
-    const { user } = await authAuthentication.execute({ email, password });
+    const { user, token } = await authAuthentication.execute({
+      email,
+      password,
+    });
 
     delete user.password;
 
-    res.json({ user });
+    res.json({ user, token });
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
