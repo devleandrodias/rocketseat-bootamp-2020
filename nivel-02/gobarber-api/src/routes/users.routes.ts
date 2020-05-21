@@ -10,19 +10,15 @@ const appointmentsRouter = Router();
 const upload = multer(uploadConfig);
 
 appointmentsRouter.post('/', async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+  const { name, email, password } = req.body;
 
-    const createUser = new CreateUserService();
+  const createUser = new CreateUserService();
 
-    const user = await createUser.execute({ name, email, password });
+  const user = await createUser.execute({ name, email, password });
 
-    delete user.password;
+  delete user.password;
 
-    return res.json(user);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
+  return res.json(user);
 });
 
 appointmentsRouter.patch(
@@ -30,17 +26,15 @@ appointmentsRouter.patch(
   ensureAuthenticated,
   upload.single('avatar'),
   async (req, res) => {
-    try {
-      const updateUserAvatar = new UpdateUserAvatarService();
-      const user_id = req.user.id;
-      const avatarFileName = req.file.filename;
+    const updateUserAvatar = new UpdateUserAvatarService();
 
-      const user = await updateUserAvatar.execute({ user_id, avatarFileName });
+    const user_id = req.user.id;
 
-      return res.json(user);
-    } catch (error) {
-      return res.status(400).json({ message: error.message });
-    }
+    const avatarFileName = req.file.filename;
+
+    const user = await updateUserAvatar.execute({ user_id, avatarFileName });
+
+    return res.json(user);
   }
 );
 
