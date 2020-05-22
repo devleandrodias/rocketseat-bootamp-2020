@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import CreateAuthAuthenticate from '../services/auth/create-auth.service';
+import CreateAuthAuthenticate from '../../modules/auth/services/create-auth.service';
 
 const authRouter = Router();
 

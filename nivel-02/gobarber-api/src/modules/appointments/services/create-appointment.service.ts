@@ -1,9 +1,9 @@
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
-import Appointment from '../../models/appointment.model';
-import AppointmentsRepository from '../../repositories/appointments.repository';
-import AppError from '../../errors/app.error';
+import Appointment from '../entities/appointment.model';
+import AppointmentsRepository from '../repositories/appointments.repository';
+import AppError from '../../../shared/errors/app.error';
 
 interface RequestDto {
   provider_id: string;
