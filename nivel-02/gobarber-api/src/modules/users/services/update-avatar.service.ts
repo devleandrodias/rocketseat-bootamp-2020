@@ -1,10 +1,10 @@
 import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
-import User from '../entities/user.model';
-import uploadConfig from '../../../config/upload.config';
-import AppError from '../../../shared/errors/app.error';
-
+import User from '../infra/typeorm/entities/user.model';
+import uploadConfig from '../../../configs/upload.config';
+import AppError from '../../../shareds/errors/app.error';
+import A from 'shareds';
 interface Request {
   user_id: string;
   avatarFileName: string;
