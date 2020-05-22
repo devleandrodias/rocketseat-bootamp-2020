@@ -21,9 +21,9 @@ const SingUp: React.FC = () => {
 
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome é obrigatório'),
-        password: Yup.string().min(6, 'Senha deve ter no mínimo 6 caracteres'),
+        password: Yup.string().min(6, 'No mínimo 6 digitos'),
         email: Yup.string()
-          .required('Email é obrigatório')
+          .required('E-mail é obrigatório')
           .email('Digite um email válido'),
       });
 
