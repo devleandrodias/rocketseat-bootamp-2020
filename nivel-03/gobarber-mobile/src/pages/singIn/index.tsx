@@ -6,7 +6,9 @@ import {
   View,
   ScrollView,
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   Container,
@@ -23,6 +25,8 @@ import Button from '../../components/Button';
 import logoImg from '../../assets/logo.png';
 
 const singIn: React.FC = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <KeyboardAvoidingView
@@ -48,7 +52,7 @@ const singIn: React.FC = () => {
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
-      <CreateAccountButton onPress={() => {}}>
+      <CreateAccountButton onPress={() => navigation.navigate('SingUp')}>
         <Icon name="log-in" size={20} color="#ff9000" />
         <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
       </CreateAccountButton>
