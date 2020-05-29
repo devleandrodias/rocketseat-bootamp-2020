@@ -18,7 +18,7 @@ interface IResponse {
 }
 
 @injectable()
-class CreateAuthAuthenticate {
+export default class CreateAuthAuthenticate {
   constructor(
     @inject('UserRepository')
     private _userRepository: IUserRepository
@@ -44,5 +44,3 @@ class CreateAuthAuthenticate {
     return { user, token };
   }
 }
-
-export default CreateAuthAuthenticate;

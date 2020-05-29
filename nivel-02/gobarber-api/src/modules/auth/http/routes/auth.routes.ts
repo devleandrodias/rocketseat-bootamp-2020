@@ -1,23 +1,9 @@
 import { Router } from 'express';
-import { container } from 'tsyringe';
-
-import CreateAuthAuthenticateService from '@modules/auth/services/create-auth.service';
+import AuthController from '../controllers/auth.controller';
 
 const authRouter = Router();
+const authController = new AuthController();
 
-authRouter.post('/', async (req, res) => {
-  const { email, password } = req.body;
-
-  const authAuthentication = container.resolve(CreateAuthAuthenticateService);
-
-  const { user, token } = await authAuthentication.execute({
-    email,
-    password,
-  });
-
-  delete user.password;
-
-  res.json({ user, token });
-});
+authRouter.post('/', authController.create);
 
 export default authRouter;
