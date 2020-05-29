@@ -1,6 +1,6 @@
-import { getRepository } from 'typeorm';
 import path from 'path';
 import fs from 'fs';
+import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shareds/errors/app.error';
 import uploadConfig from '@configs/upload.config';
@@ -12,8 +12,12 @@ interface IRequest {
   avatarFileName: string;
 }
 
+@injectable()
 class UpdateUserAvatarService {
-  constructor(private _userRepository: IUserRepository) {}
+  constructor(
+    @inject('UserRepository')
+    private _userRepository: IUserRepository
+  ) {}
 
   public async execute({ user_id, avatarFileName }: IRequest): Promise<User> {
     const user = await this._userRepository.findById(user_id);

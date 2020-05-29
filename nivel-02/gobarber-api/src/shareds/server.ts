@@ -9,7 +9,8 @@ import routes from '@shareds/infra/http/routes';
 import AppError from '@shareds/errors/app.error';
 import uploadConfig from '@configs/upload.config';
 
-import '../typeorm';
+import '@shareds/infra/typeorm';
+import '@shareds/container';
 
 const app = express();
 
