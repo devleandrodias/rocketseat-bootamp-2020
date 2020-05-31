@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import CreateAppointmentService from './create-appointment.service';
 import FakeAppointmentRepository from '../repositories/fakes/appointments.repository.fake';
 import AppError from '@shareds/errors/app.error';

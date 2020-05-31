@@ -5,7 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shareds/errors/app.error';
 import uploadConfig from '@configs/upload.config';
 import User from '@modules/users/infra/typeorm/entities/user.model';
-import IUserRepository from '../repositories/user-repository.interface';
+import IUserRepository from '../repositories/user.repository.interface';
 
 interface IRequest {
   user_id: string;

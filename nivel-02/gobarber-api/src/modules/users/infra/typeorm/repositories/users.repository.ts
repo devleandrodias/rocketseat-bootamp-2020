@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import User from '../entities/user.model';
-import IUserRepository from '@modules/users/repositories/user-repository.interface';
+import IUserRepository from '@modules/users/repositories/user.repository.interface';
 import ICreateUserDto from '@modules/users/dtos/create-user-interface.dto';
 
 class UsersRepository implements IUserRepository {
